@@ -2,13 +2,12 @@ class CreateProducts < ActiveRecord::Migration
   def change
     create_table :products do |t|
       t.string :name
-      t.decimal :weight
-      t.decimal :price
+      t.integer :weight
+      t.integer :price
       t.text :description
-      t.string :tag_1
-      t.string :tag_2
-      t.string :tag_3
-
+      t.string :image
+      t.string :category_ids
+      t.string :tag_list
       t.timestamps null: false
     end
   end

@@ -31,6 +31,7 @@ gem 'carrierwave'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem "haml-rails", "~> 0.9"
+gem 'will_paginate', '~> 3.0.6'
 group :development, :test do
   gem 'byebug'
   gem 'rspec-rails', '~> 3.0'

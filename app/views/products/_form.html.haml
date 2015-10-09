@@ -28,21 +28,13 @@
     %br/
     = f.text_area :description
   .field
-    = f.label :category
+    = f.label :Please_select_category
     %br/
-    = f.select :category_id, @categories.collect{|c| [c.name, c.id] }, :prompt => 'Select category'
+    = f.select :category_ids, @categories.collect{|c| [c.name, c.id] },  {}, {:multiple => true} 
   .field
-    = f.label :tag_1
+    = f.label :tag_list, "Tags (separated by commas)"
     %br/
-    = f.text_field :tag_1
-  .field
-    = f.label :tag_2
-    %br/
-    = f.text_field :tag_2
-  .field
-    = f.label :tag_3
-    %br/
-    = f.text_field :tag_3
+    = f.text_field :tag_list
   .actions
     = f.submit
    

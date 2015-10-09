@@ -7,16 +7,16 @@
       %td.list_description
         %dl
           %dd= truncate(strip_tags(product.description), length: 80)
-       %td.list_price
+          %dd= product.tag_list.collect{|v| v}.join(",")
+      %td.list_price
         %dl
-          %dd= product.price
-       %td.list_weight
+          %dd= product.price.to_s + " " + "euros"
+      %td.list_weight
         %dl
-          %dd= product.weight
-     
-      
+          %dd= product.weight.to_s + " " + "kg"
+          %dd= link_to 'En savoir plus', product
       %td.list_actions
-        = link_to 'En savoir plus', product
+        = link_to 'Show', product
         %br/
         = link_to 'Edit', edit_product_path(product)
         %br/
@@ -24,3 +24,5 @@
           data: { confirm: 'Are you sure?' }           |
 %br/
 = link_to 'New product', new_product_path
+
+= will_paginate @product

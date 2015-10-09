@@ -1,13 +1,18 @@
 %p#notice= notice
 
+= image_tag(@product.image_url, class: 'list_image', size: "500x500")
 %p
-  %strong Weight:
-  = @product.weight
-%p
-  %strong Price:
-  = @product.price
-%p
-  %strong Description:
+  %strong Description du produit:
   = @product.description
+%p
+  %strong Poids:
+  = @product.weight.to_s + " " + "kg"
+%p
+  %strong Prix TTC:
+  = @product.price.to_s + " " + "euros"
+%p
+  %strong Catégories attachées:
+  = @category_name.collect{|v| v.name}.join(", ")
+
 
 

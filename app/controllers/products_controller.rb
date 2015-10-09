@@ -4,12 +4,13 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    @products = Product.paginate(:page => params[:page], :per_page => 5)
   end
 
   # GET /products/1
   # GET /products/1.json
   def show
+    @category_name = Category.where(id: @product.category_ids.flatten)
   end
 
   # GET /products/new
@@ -25,8 +26,10 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
+    debugger
     @product = Product.new(product_params)
-    @product.category_id = params[:category_id]
+    @product.category_ids = params[:product][:category_ids].split(",")
+    @product.tag_list = params[:product][:tag_list].split(",")
     respond_to do |format|
       if @product.save
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
@@ -70,6 +73,6 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:name, :weight, :price, :description, :tag_1, :tag_2, :tag_3, :image)
+      params.require(:product).permit(:name, :weight, :price, :description, :tag_list, :image)
     end
 end
