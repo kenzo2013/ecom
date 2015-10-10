@@ -1,0 +1,8 @@
+#user_nav
+  = link_to "Accueil", root_url
+  - if current_user
+    \#{link_to "Déconnexion", log_out_path}
+    = link_to "Gestion du catalogue", {:controller => "admins", :action => "index"}
+  - else
+    /*= link_to "Sign up", sign_up_path*/
+    \#{link_to "Administrateur", log_in_path}

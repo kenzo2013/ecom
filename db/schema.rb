@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151010104424) do
+ActiveRecord::Schema.define(version: 20151010200225) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -26,10 +26,25 @@ ActiveRecord::Schema.define(version: 20151010104424) do
     t.text     "description"
     t.string   "image"
     t.string   "category_ids"
-    t.string   "tag_list"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.string   "tag_list_ids"
+    t.string   "state",        default: "visible"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.integer  "row_product"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "email"
+    t.string   "password_hash"
+    t.string   "password_salt"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
 end

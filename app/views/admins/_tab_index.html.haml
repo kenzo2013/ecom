@@ -1,0 +1,27 @@
+%table#sortable.table.table-bordered.table-striped
+  - @products.each do |product|
+    %tr.item{"data-item-id" => "#{product.id}" }
+      %td
+        = image_tag(product.image_url, class: 'list_image', size: "100x100")
+      %td.list_description
+        %dl
+          %dd= truncate(strip_tags(product.description), length: 80)
+          %dd= Tag.where(id: product.tag_list_ids).collect{|v| v.name}.join(", ")
+      %td.list_price
+        %dl
+          %dd= product.price.to_s + " " + "euros"
+      %td.list_weight
+        %dl
+          %dd= product.weight.to_s + " " + "kg"
+          %dd= link_to 'En savoir plus', product
+      - if current_user
+        %td.list_actions
+          = link_to 'Edit', edit_product_path(product)
+          %br/
+          = link_to 'Destroy', product, method: :delete, |
+            data: { confirm: 'Are you sure?' }           |
+          = link_to image_tag("visible.png", :border =>0, :size => "16x16", :title => "Visible"),   { :controller => 'admins', :action => 'to_invisible', :id => product }, :remote => true, :id => "but_invisible_#{product}" if product.state== "visible" 
+          = link_to image_tag("invisble.png", :border =>0, :size => "16x16", :title => "Invisible"), { :controller => 'admins', :action => 'to_visible', :id => product}, :remote => true, :id => "but_visible_#{product}" if product.state == "invisible"
+
+
+=# will_paginate @products

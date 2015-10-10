@@ -34,6 +34,9 @@ gem "haml-rails", "~> 0.9"
 gem 'will_paginate', '~> 3.0.6'
 gem "searchkick"
 gem 'ranked-model'
+gem 'jquery-ui-rails'
+gem "bcrypt-ruby"
+gem "bcrypt"
 group :development, :test do
   gem 'byebug'
   gem 'rspec-rails', '~> 3.0'

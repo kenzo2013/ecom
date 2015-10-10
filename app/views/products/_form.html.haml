@@ -30,11 +30,11 @@
   .field
     = f.label :Please_select_category
     %br/
-    = f.select :category_ids, @categories.collect{|c| [c.name, c.id] },  {}, {:multiple => true} 
+    = f.select :category_ids, options_for_select(@categories.collect{|c| [c.name, c.id] }),  {}, {:multiple => true} 
   .field
-    = f.label :tag_list, "Tags (separated by commas)"
+    = f.label :Tag_list
     %br/
-    = f.text_field :tag_list
+    = f.select :tag_list_ids, @tags.collect{|c| [c.name, c.id] },  {}, {:multiple => true} 
   .actions
     = f.submit
    

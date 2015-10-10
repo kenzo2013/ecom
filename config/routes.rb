@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
+  get "log_in" => "sessions#new", :as => "log_in"
+  get "log_out" => "sessions#destroy", :as => "log_out"
+  get "sign_up" => "users#new", :as => "sign_up"
+  get "Administrator" => "admins#index", :as => "Administrator"
+  resources :users
   resources :categories
+  resources :sessions
   resources :products do
    post :update_row_product, on: :collection
   end
@@ -9,6 +15,8 @@ Rails.application.routes.draw do
       get :autocomplete 
     end
   end
+  match "admins/to_visible/:id" => "admins#to_visible",via: [:get, :post]
+  match "admins/to_invisible/:id" => "admins#to_invisible",via: [:get, :post]
   root 'products#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

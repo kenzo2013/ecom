@@ -4,18 +4,34 @@
       = link_to "clear", products_path
     = text_field_tag :query, params[:query], id: "product_search", autocomplete: "on"
     = submit_tag "OK"
-.tri
-  
-%h1 Listing products
+.sort_filter
+  = form_tag products_path, method: :get do
+    .sort
+      %h3 Tri par:
+      = check_box_tag :price,  "price"
+      = label_tag :Prix
+      %br/
+      = check_box_tag :weight,  "weight"
+      = label_tag :Poids
+    .filter
+      %h3 Filtrer:
+      %ul
+        - @tags.each do |tag|
+          %li
+            = check_box_tag 'tag_list_ids[]', tag.id
+            = h tag.name
+    = submit_tag "GO"
+
+%h1 Liste des produits
 %table#sortable.table.table-bordered.table-striped
   - @products.each do |product|
-    %tr{"data-item-id" => "<haml_loud"} "\#{product.id}" class="item">
+    %tr.item{"data-item-id" => "#{product.id}" }
       %td
         = image_tag(product.image_url, class: 'list_image', size: "100x100")
       %td.list_description
         %dl
           %dd= truncate(strip_tags(product.description), length: 80)
-          %dd= product.tag_list.collect{|v| v}.join(",")
+          %dd= Tag.where(id: product.tag_list_ids).collect{|v| v.name}.join(", ")
       %td.list_price
         %dl
           %dd= product.price.to_s + " " + "euros"
@@ -23,14 +39,6 @@
         %dl
           %dd= product.weight.to_s + " " + "kg"
           %dd= link_to 'En savoir plus', product
-      %td.list_actions
-        = link_to 'Show', product
-        %br/
-        = link_to 'Edit', edit_product_path(product)
-        %br/
-        = link_to 'Destroy', product, method: :delete, |
-          data: { confirm: 'Are you sure?' }           |
-%br/
-= link_to 'New product', new_product_path
 
-= will_paginate @products
+
+=# will_paginate @products
