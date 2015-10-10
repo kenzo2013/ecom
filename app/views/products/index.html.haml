@@ -1,7 +1,15 @@
+.search
+  = form_tag products_path, method: :get do
+    - if params[:query].present?
+      = link_to "clear", products_path
+    = text_field_tag :query, params[:query], id: "product_search", autocomplete: "on"
+    = submit_tag "OK"
+.tri
+  
 %h1 Listing products
-%table
+%table#sortable.table.table-bordered.table-striped
   - @products.each do |product|
-    %tr{:class => cycle('list_line_odd', 'list_line_even')}
+    %tr{"data-item-id" => "<haml_loud"} "\#{product.id}" class="item">
       %td
         = image_tag(product.image_url, class: 'list_image', size: "100x100")
       %td.list_description
@@ -25,4 +33,4 @@
 %br/
 = link_to 'New product', new_product_path
 
-= will_paginate @product
+= will_paginate @products

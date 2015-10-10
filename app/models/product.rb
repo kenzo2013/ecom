@@ -1,7 +1,11 @@
 class Product < ActiveRecord::Base
+  include RankedModel
   serialize :tag_list
   serialize :category_ids
+  searchkick autocomplete: ['title']
+  ranks :row_product
   belongs_to :category
+  
   mount_uploader :image, ImageUploader
   validates_presence_of :image
   validates_presence_of :name

@@ -14,7 +14,7 @@ gem 'coffee-rails', '~> 4.1.0'
 # gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails'
+gem 'jquery-rails', "~> 2.3.0" 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -32,6 +32,8 @@ gem 'carrierwave'
 # gem 'capistrano-rails', group: :development
 gem "haml-rails", "~> 0.9"
 gem 'will_paginate', '~> 3.0.6'
+gem "searchkick"
+gem 'ranked-model'
 group :development, :test do
   gem 'byebug'
   gem 'rspec-rails', '~> 3.0'
