@@ -1,9 +1,9 @@
 .search
   = form_tag products_path, method: :get do
     - if params[:query].present?
-      = link_to "clear", products_path
+      = link_to "Effacer", products_path
     = text_field_tag :query, params[:query], id: "product_search", autocomplete: "on"
-    = submit_tag "OK"
+    = submit_tag "OK", :remote => true
 .sort_filter
   = form_tag products_path, method: :get do
     .sort
@@ -20,25 +20,9 @@
           %li
             = check_box_tag 'tag_list_ids[]', tag.id
             = h tag.name
-    = submit_tag "GO"
+    .go
+      = submit_tag "GO", :remote => true
 
 %h1 Liste des produits
-%table#sortable.table.table-bordered.table-striped
-  - @products.each do |product|
-    %tr.item{"data-item-id" => "#{product.id}" }
-      %td
-        = image_tag(product.image_url, class: 'list_image', size: "100x100")
-      %td.list_description
-        %dl
-          %dd= truncate(strip_tags(product.description), length: 80)
-          %dd= Tag.where(id: product.tag_list_ids).collect{|v| v.name}.join(", ")
-      %td.list_price
-        %dl
-          %dd= product.price.to_s + " " + "euros"
-      %td.list_weight
-        %dl
-          %dd= product.weight.to_s + " " + "kg"
-          %dd= link_to 'En savoir plus', product
-
-
-=# will_paginate @products
+.splitcontent
+  = render 'tab_index'

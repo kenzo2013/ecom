@@ -1,0 +1,19 @@
+%table#sortable.table.table-bordered.table-striped
+  - @products.each do |product|
+    %tr.item{"data-item-id" => "#{product.id}" }
+      %td
+        = image_tag(product.image_url, class: 'list_image', size: "100x100")
+      %td.list_description
+        %dl
+          %dd= truncate(strip_tags(product.description), length: 80)
+          %dd= Tag.where(id: product.tag_list_ids).collect{|v| v.name}.join(", ")
+      %td.list_price
+        %dl
+          %dd= product.price.to_s + " " + "euros"
+      %td.list_weight
+        %dl
+          %dd= product.weight.to_s + " " + "kg"
+          %dd= link_to 'En savoir plus', product
+
+
+=# will_paginate @products

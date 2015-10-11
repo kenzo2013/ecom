@@ -23,18 +23,18 @@ class Product < ActiveRecord::Base
     self.update_attributes(state: "invisible")
   end
   def self.sort_filter(ids, price, weight )
-    if ids or price or weight
-      res = self.where(state: "visible").where(tag_list_ids: ids).order(price: :desc).order(weight: :asc)
-      elsif ids or price 
+    if ids and price and weight
+      res = self.where(state: "visible").where(tag_list_ids: ids).order(price: :desc).order(weight: :desc)
+      elsif ids and price 
         res = self.where(state: "visible").where(tag_list_ids: ids).order(price: :desc)
-      elsif ids or weight
-        res = self.where(state: "visible").where(tag_list_ids: ids).order(weight: :asc)
-      elsif price or weight
-        res = self.where(state: "visible").order(price: :desc).order(weight: :asc)
+      elsif ids and weight
+        res = self.where(state: "visible").where(tag_list_ids: ids).order(weight: :desc)
+      elsif price and weight
+        res = self.where(state: "visible").order(price: :desc).order(weight: :desc)
       elsif price
         res = self.where(state: "visible").order(price: :desc)
       elsif weight
-        res = self.where(state: "visible").order(weight: :asc)
+        res = self.where(state: "visible").order(weight: :desc)
     else 
       res = self.where(state: "visible")
     end

@@ -1,16 +1,11 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-  
+  before_action :get_products,  only: [:index]
   def index
-    debugger
-    if params[:commit].present?
-        @products = Product.sort_filter(params[:tag_list_ids], params[:price], params[:weight])
-      elsif params[:query].present?
-        @products  = Product.search(params[:query]) #.rank(:row_product).paginate(:page => params[:page], :per_page => 5)
-      else
-          @products  = Product.where(state: "visible").rank(:row_product) #.paginate(:page => params[:page], :per_page => 5)
+    respond_to do |format|
+      format.js 
+      format.html
     end
-    @tags = Tag.all
    
   end
 
@@ -79,7 +74,16 @@ class ProductsController < ApplicationController
   def autocomplete
     render json: Product.search(params[:query], autocomplete: true, limit: 10).map(&:title)
   end
-  
+  def get_products
+     if params[:commit].present?
+        @products = Product.sort_filter(params[:tag_list_ids], params[:price], params[:weight])
+      elsif params[:query].present?
+        @products  = Product.where(state: "visible").search(params[:query]) #.rank(:row_product).paginate(:page => params[:page], :per_page => 5)
+      else
+          @products  = Product.where(state: "visible").rank(:row_product) #.paginate(:page => params[:page], :per_page => 5)
+    end
+    @tags = Tag.all
+  end
 
   private
     def set_product
